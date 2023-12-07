@@ -23,3 +23,9 @@ Feeding an objdump via stdin into asm-parser:
 ```bash
 gcc -g -S -masm=intel -o - example.cpp | npm run --silent parse -- --unused_labels --library_code --directives --comment_only > example.asm
 ```
+
+```bash
+gcc -g -S -masm=intel -o - example.cpp | asm-parser-win.exe --unused_labels --library_code --directives --comment_only > example.asm
+gcc -g -S -masm=intel -o - example.cpp | ./asm-parser-linux --unused_labels --library_code --directives --comment_only > example.asm
+gcc -g -S -masm=intel -o - example.cpp | ./asm-parser-macos --unused_labels --library_code --directives --comment_only > example.asm
+```
