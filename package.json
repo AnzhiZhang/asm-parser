@@ -1,0 +1,40 @@
+{
+  "name": "asm-parser",
+  "type": "module",
+  "version": "1.0.0",
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "golden-layout": "^1.5.9",
+    "path-browserify": "^1.0.1",
+    "semver": "^7.5.4",
+    "shell-quote": "^1.8.1",
+    "tree-kill": "^1.2.2",
+    "triple-beam": "^1.4.1",
+    "underscore": "^1.13.6",
+    "winston": "^3.11.0",
+    "winston-loki": "^6.0.8",
+    "winston-papertrail": "^1.0.5",
+    "winston-transport": "^4.6.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.10.4",
+    "@types/semver": "^7.5.6",
+    "@types/shell-quote": "^1.7.5",
+    "@types/underscore": "^1.11.15",
+    "@vercel/ncc": "^0.28.0",
+    "mock-fs": "^5.2.0",
+    "npm-run-all": "^4.1.5",
+    "pkg": "^5.8.1",
+    "rollup": "^4.6.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.3"
+  },
+  "scripts": {
+    "parse": "cat example.asm | ts-node-esm index.ts",
+    "build": "npm-run-all build:*",
+    "build:1": "tsc index.ts --target esnext --module nodenext --skipLibCheck --outDir dist",
+    "build:2": "rollup dist/index.js --file dist/bundle.js --format cjs",
+    "build:3": "pkg dist/bundle.js --targets node16-linux-x64,node16-macos-x64,node16-win-x64 --output dist/asm-parser"
+  }
+}
