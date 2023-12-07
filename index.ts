@@ -24,15 +24,26 @@ function resultToText(r: ParsedAsmResult) {
   return r.asm.map(line => line.text).join('\n');
 }
 
-const stdin = process.openStdin();
-let data = "";
+function getInput(): Promise<string> {
+  return new Promise(function (resolve, reject) {
+    const stdin = process.stdin;
+    let data: string = "";
 
-stdin.on("data", function (chunk) {
-  data += chunk;
-});
+    stdin.setEncoding("utf8");
+    stdin.on("data", function (chunk) {
+      data += chunk;
+    });
 
-stdin.on("end", async function () {
-  let result = asmParser.process(data, filters);
+    stdin.on("end", function () {
+      resolve(data);
+    });
+
+    stdin.on('error', reject);
+  });
+}
+
+getInput().then(async (input: string) => {
+  let result = asmParser.process(input, filters);
 
   result = await cppDemangler.process(result);
   console.log(resultToText(result));
