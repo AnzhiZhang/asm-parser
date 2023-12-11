@@ -13,6 +13,7 @@ Possible filters as command line parameters:
 * `--directives` filter out .directives
 * `--library_code` try to filter out functions that belong in other libraries that are used (filtering is based on filepaths)
 * `--comment_only` filter out comments
+* `--outputtext` Instead of writing to JSON, output the filtered assemblys
 
 ## Example usage
 
