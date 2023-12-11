@@ -11,6 +11,7 @@ const cppDemangler = new CppDemangler("c++filt", baseCompiler);
 const asmParser = new AsmParser();
 
 const args = process.argv;
+const outputTextFlag = args.includes("--outputtext");
 const filters: ParseFiltersAndOutputOptions = {
   labels: args.includes("--unused_labels"),
   libraryCode: args.includes("--library_code"),
@@ -43,8 +44,16 @@ function getInput(): Promise<string> {
 }
 
 getInput().then(async (input: string) => {
+  // parse
   let result = asmParser.process(input, filters);
 
+  // demangle
   result = await cppDemangler.process(result);
-  console.log(resultToText(result));
+
+  // print
+  if (outputTextFlag) {
+    console.log(resultToText(result));
+  } else {
+    console.log(JSON.stringify(result, null, 2));
+  }
 });
