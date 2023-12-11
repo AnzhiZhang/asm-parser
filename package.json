@@ -1,7 +1,7 @@
 {
   "name": "asm-parser",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "dependencies": {
     "fs-extra": "^11.2.0",
     "golden-layout": "^1.5.9",
